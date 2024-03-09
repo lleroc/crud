@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { IEmpleado } from './empleado.interface';
 import { v4 as uuidV4 } from 'uuid';
+import { EmpleadoDTO } from './empleado.dto';
 
 @Injectable()
 export class EmpleadosService {
@@ -11,7 +12,7 @@ export class EmpleadosService {
   uno(id: string) {
     return this.empleados.find((empleado) => empleado.id == id);
   }
-  insertar(empleado: IEmpleado) {
+  insertar(empleado: EmpleadoDTO) {
     const emp = {
       id: uuidV4(),
       ...empleado,
@@ -19,7 +20,7 @@ export class EmpleadosService {
     this.empleados.push(emp);
     return this.empleados;
   }
-  actualizar(id: string, empleadoActualziar: IEmpleado) {
+  actualizar(id: string, empleadoActualziar: EmpleadoDTO) {
     const nuevoemp = { id, ...empleadoActualziar };
     this.empleados = this.empleados.map((empleado) =>
       empleado.id === id ? nuevoemp : empleado,

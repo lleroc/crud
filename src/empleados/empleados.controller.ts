@@ -6,11 +6,14 @@ import {
   Param,
   Post,
   Put,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { EmpleadosService } from './empleados.service';
 import { IEmpleado } from './empleado.interface';
+import { EmpleadoDTO } from './empleado.dto';
 
-@Controller('empleados')
+@Controller('api/v1/empleados')
 export class EmpleadosController {
   constructor(private empleadosServicio: EmpleadosService) {}
 
@@ -24,11 +27,11 @@ export class EmpleadosController {
     return this.empleadosServicio.uno(id);
   }
   @Post()
-  insertar(@Body() empleado: IEmpleado) {
+  insertar(@Body() empleado: EmpleadoDTO) {
     return this.empleadosServicio.insertar(empleado);
   }
   @Put(':id')
-  actualizar(@Param('id') id: string, @Body() empleado: IEmpleado) {
+  actualizar(@Param('id') id: string, @Body() empleado: EmpleadoDTO) {
     return this.empleadosServicio.actualizar(id, empleado);
   }
   @Delete(':id')
